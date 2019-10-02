@@ -124,4 +124,13 @@ default via 9.236.194.1 dev wlp4s0 proto dhcp metric 600
 # Adding default route to the bridge in all namespaces
 
 sudo ip -all netns exec ip route add default via 192.168.1.10
+
+# Adding sourne NAT to the host iptables
+
+iptables -t nat -A POSTROUTING -s 192.168.1.0/24 -o wlp4s0  -j MASQUERADE
+        
+
+# Enable interface talk to each other
+sysctl -w net.ipv4.ip_forward=1
+
 ```
