@@ -3,6 +3,9 @@
 
 Using network namespaces and a virtual switch to isolate servers
 
+https://drive.google.com/file/d/1wjyoZL4dRY5WCOdCOJyoCZO5Xu81RPzA/view?usp=sharing
+
+
 ## Build
 
 - two network namespace (in this case, we can think of each network namespace as a different computer)
