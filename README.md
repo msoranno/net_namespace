@@ -88,3 +88,33 @@ sudo ip link set br-veth2 master br1
 
 ```
 
+### List the bridge
+
+```
+bridge link list
+bridge link show br1
+```
+
+### Add ip to the bridge
+
+```
+# Set the address of the `br1` interface (bridge device)
+# to 192.168.1.10/24 and also set the broadcast address
+# to 192.168.1.255 (the `+` symbol sets  the host bits to
+# 255).
+
+ip addr add 192.168.1.10/24 brd + dev br1
+
+Note1: From now we can ping from host to .11(namespace1) and to .12(namespace2)
+
+Note2: we can see on routes from hosts that any request to 192.168.1.0/24 (our namespaces) will go to the br1 bridge
+
+ip route
+
+default via 9.236.194.1 dev wlp4s0 proto dhcp metric 600 
+9.236.194.0/23 dev wlp4s0 proto kernel scope link src 9.236.194.161 metric 600 
+-> 192.168.1.0/24 dev br1 proto kernel scope link src 192.168.1.10 
+192.168.42.0/24 dev virbr2 proto kernel scope link src 192.168.42.1 
+192.168.122.0/24 dev virbr0 proto kernel scope link src 192.168.122.1 
+192.168.123.0/24 dev virbr1 proto kernel scope link src 192.168.123.1 
+```
