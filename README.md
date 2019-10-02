@@ -118,3 +118,10 @@ default via 9.236.194.1 dev wlp4s0 proto dhcp metric 600
 192.168.122.0/24 dev virbr0 proto kernel scope link src 192.168.122.1 
 192.168.123.0/24 dev virbr1 proto kernel scope link src 192.168.123.1 
 ```
+
+### making internet accesible from the namespaces
+```
+# Adding default route to the bridge in all namespaces
+
+sudo ip -all netns exec ip route add default via 192.168.1.10
+```
