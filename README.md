@@ -17,12 +17,23 @@ ip netns add namespace2
 
 sudo ip netns list
 
+# This 2 files were created
+
 [sp81891@oc2157818656 ~]$ ls -alrt /var/run/netns/
 total 0
 drwxr-xr-x. 44 root root 1400 Oct  2 15:51 ..
 -r--r--r--.  1 root root    0 Oct  2 15:51 namespace1
 drwxr-xr-x.  2 root root   80 Oct  2 15:51 .
 -r--r--r--.  1 root root    0 Oct  2 15:51 namespace2
+
+# Now we can take advantage of the isolated namespace
+
+[sp81891@oc2157818656 ~]$ sudo ip netns exec namespace1 ip add
+1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
 ```
 
-###
+### Create two interfaces type veth (virtualk internet interface)
+sudo ip link add veth1 type veth peer name br-veth1
+sudo ip link add veth2 type veth peer name br-veth2
+
