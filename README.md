@@ -31,9 +31,21 @@ drwxr-xr-x.  2 root root   80 Oct  2 15:51 .
 [sp81891@oc2157818656 ~]$ sudo ip netns exec namespace1 ip add
 1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    
+    [sp81891@oc2157818656 ~]$ sudo ip netns exec namespace1 ip link
+[sudo] password for sp81891: 
+1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+
 ```
 
 ### Create two interfaces type veth (virtualk internet interface)
-sudo ip link add veth1 type veth peer name br-veth1
-sudo ip link add veth2 type veth peer name br-veth2
+
+- Create the two pairs.
+ip link add veth1 type veth peer name br-veth1
+ip link add veth2 type veth peer name br-veth2
+
+- Associate the non `br-` side with the corresponding namespace
+ip link set veth1 netns namespace1
+ip link set veth2 netns namespace2
 
